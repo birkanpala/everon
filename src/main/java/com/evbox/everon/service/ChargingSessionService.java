@@ -21,12 +21,15 @@ import java.util.stream.Collectors;
 public class ChargingSessionService {
 
     private final ChargingSessionRepository repository;
+    private final ChargingSessionStatisticsService chargingSessionStatisticsService;
 
     public ChargingSessionResponse create(final String stationId) {
 
         Objects.requireNonNull(stationId);
 
         final ChargingSession chargingSession = repository.save(createSession(stationId));
+
+        chargingSessionStatisticsService.started(chargingSession.getStartedAt());
 
         return ChargingSessionResponse.from(chargingSession);
     }
@@ -59,6 +62,8 @@ public class ChargingSessionService {
         finishSession(chargingSession);
 
         repository.save(chargingSession);
+
+        chargingSessionStatisticsService.stopped(chargingSession.getStoppedAt());
 
         return ChargingSessionResponse.from(chargingSession);
     }
