@@ -23,6 +23,15 @@ public class ChargingSessionService {
     private final ChargingSessionRepository repository;
     private final ChargingSessionStatisticsService chargingSessionStatisticsService;
 
+    /**
+     * Creates new charging session for the given station id.
+     *
+     * Operates at O(log n) time complexity due to sending
+     * stared event to ChargingSessionStatisticsService.
+     *
+     * @param stationId Station Id
+     * @return Charging session response DTO
+     */
     public ChargingSessionResponse create(final String stationId) {
 
         Objects.requireNonNull(stationId);
@@ -30,6 +39,8 @@ public class ChargingSessionService {
         final ChargingSession chargingSession = repository.save(createSession(stationId));
 
         chargingSessionStatisticsService.started(chargingSession.getStartedAt());
+
+        log.info("New session is created for station {}, with id {}", stationId, chargingSession.getId());
 
         return ChargingSessionResponse.from(chargingSession);
     }
@@ -49,6 +60,15 @@ public class ChargingSessionService {
         return chargingSession;
     }
 
+    /**
+     * Stops a charging session by the given session id.
+     *
+     * Operates at O(log n) time complexity due to sending
+     * stopped event to ChargingSessionStatisticsService.
+     *
+     * @param id Session Id
+     * @return Charging session response DTO
+     */
     public ChargingSessionResponse stop(final String id) {
 
         Objects.requireNonNull(id);
@@ -65,6 +85,8 @@ public class ChargingSessionService {
 
         chargingSessionStatisticsService.stopped(chargingSession.getStoppedAt());
 
+        log.info("Session with id {} is stopped.", chargingSession.getId());
+
         return ChargingSessionResponse.from(chargingSession);
     }
 
@@ -77,6 +99,13 @@ public class ChargingSessionService {
         chargingSession.setStoppedAt(stoppedAt);
     }
 
+    /**
+     * Gets all charging sessions.
+     *
+     * Operates at O(n) time complexity.
+     *
+     * @return List of charging sessions
+     */
     public List<ChargingSessionResponse> getAll() {
 
         return repository.findAll()

@@ -28,16 +28,6 @@ public class CustomResponseEntityExceptionHandler extends ResponseEntityExceptio
         return createResponseEntity(response);
     }
 
-    @ExceptionHandler(BadRequestException.class)
-    public final ResponseEntity<Object> handleBadRequestException(BadRequestException ex,
-                                                                  WebRequest request) {
-
-        ApiExceptionResponse response = ApiExceptionResponse.of(HttpStatus.BAD_REQUEST, ex.getMessage());
-
-        return createResponseEntity(response);
-    }
-
-
     @ExceptionHandler(IllegalArgumentException.class)
     public final ResponseEntity<Object> handleIllegalArgumentException(IllegalArgumentException ex,
                                                                        WebRequest request) {

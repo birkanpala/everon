@@ -16,10 +16,20 @@ public class InMemoryChargingSessionRepository implements ChargingSessionReposit
 
     private final Map<UUID, ChargingSession> chargingSessions;
 
+    /**
+     * Charging sessions are stored in ConcurrentHashMap for thread-safe access and
+     * constant time operations.
+     */
     public InMemoryChargingSessionRepository() {
         chargingSessions = new ConcurrentHashMap<>();
     }
 
+    /**
+     * Puts charging session to map.
+     *
+     * @param chargingSession Charging session
+     * @return Persisted charging session
+     */
     @Override
     public ChargingSession save(final ChargingSession chargingSession) {
 
@@ -30,6 +40,12 @@ public class InMemoryChargingSessionRepository implements ChargingSessionReposit
         return chargingSession;
     }
 
+    /**
+     * Gets charging session by ID
+     *
+     * @param id ID of the charging session
+     * @return Charging session
+     */
     @Override
     public Optional<ChargingSession> findById(final UUID id) {
 
@@ -38,6 +54,11 @@ public class InMemoryChargingSessionRepository implements ChargingSessionReposit
         return Optional.ofNullable(chargingSessions.get(id));
     }
 
+    /**
+     * Returns all the charging sessions
+     *
+     * @return List of charging sessions
+     */
     @Override
     public List<ChargingSession> findAll() {
 
