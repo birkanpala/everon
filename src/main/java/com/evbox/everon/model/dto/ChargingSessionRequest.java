@@ -1,11 +1,11 @@
 package com.evbox.everon.model.dto;
 
-import lombok.Data;
+import lombok.Value;
 
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
 
-@Data
+@Value
 public class ChargingSessionRequest {
 
     @NotNull

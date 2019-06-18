@@ -2,9 +2,7 @@ package com.evbox.everon.errorhandling;
 
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
-import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.HttpMediaTypeNotSupportedException;
 import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
@@ -58,18 +56,6 @@ public class CustomResponseEntityExceptionHandler extends ResponseEntityExceptio
 
         ApiExceptionResponse response = ApiExceptionResponse.of(HttpStatus.BAD_REQUEST, errors);
 
-        return createResponseEntity(response);
-    }
-
-    @Override
-    protected ResponseEntity<Object> handleHttpMediaTypeNotSupported(HttpMediaTypeNotSupportedException ex,
-                                                                     HttpHeaders headers, HttpStatus status,
-                                                                     WebRequest request) {
-
-        String unsupported = "Unsupported content type: " + ex.getContentType();
-        String supported = "Supported content types: " + MediaType.toString(ex.getSupportedMediaTypes());
-
-        ApiExceptionResponse response = ApiExceptionResponse.of(HttpStatus.UNSUPPORTED_MEDIA_TYPE, unsupported + supported);
         return createResponseEntity(response);
     }
 

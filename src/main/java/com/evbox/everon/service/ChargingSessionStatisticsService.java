@@ -1,7 +1,6 @@
 package com.evbox.everon.service;
 
 import com.evbox.everon.model.dto.ChargingSessionsSummaryResponse;
-import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Service;
@@ -13,7 +12,6 @@ import java.util.concurrent.PriorityBlockingQueue;
 
 @Service
 @Slf4j
-@RequiredArgsConstructor
 public class ChargingSessionStatisticsService {
 
     private final Queue<LocalDateTime> startedQueue;
