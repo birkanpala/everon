@@ -6,6 +6,7 @@ import com.evbox.everon.model.dto.ChargingSessionResponse;
 import com.evbox.everon.model.dto.ChargingSessionsSummaryResponse;
 import com.evbox.everon.service.ChargingSessionService;
 import com.evbox.everon.service.ChargingSessionStatisticsService;
+import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
@@ -203,7 +204,7 @@ public class ChargingSessionControllerTest {
     private String valueAsString(final Object obj) {
         try {
             return objectMapper.writeValueAsString(obj);
-        } catch (Exception e) {
+        } catch (JsonProcessingException e) {
             throw new RuntimeException(e);
         }
     }

@@ -1,6 +1,7 @@
 plugins {
 	id 'org.springframework.boot' version '2.1.5.RELEASE'
 	id 'java'
+	id 'com.google.cloud.tools.jib' version '1.2.0'
 }
 
 apply plugin: 'io.spring.dependency-management'
@@ -48,4 +49,8 @@ test {
 					"${result.skippedTestCount} skipped"
 		}
 	}
+}
+
+jib {
+	container.useCurrentTimestamp = true
 }

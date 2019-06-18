@@ -8,4 +8,7 @@ public class DateTimeUtils {
     public static String format(final LocalDateTime localDateTime) {
         return localDateTime.format(DateTimeFormatter.ISO_LOCAL_DATE_TIME);
     }
+
+    private DateTimeUtils() {
+    }
 }
